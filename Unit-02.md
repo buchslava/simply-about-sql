@@ -24,17 +24,33 @@ INSERT INTO staff values(5, 'Bill', 'Service', 100);
 SELECT SUM(salary*12) FROM staff;
 ```
 
+|SUM(salary*12)|
+|-|
+|9600|
+|
+
 ### Calculate sum, min, max and avg annual salaries by deps
 ```sql
 SELECT dep, SUM(salary*12) FROM staff GROUP BY dep;
 SELECT dep, MIN(salary*12), MAX(salary*12), AVG(salary*12) FROM staff GROUP BY dep;
 ```
 
+|dep|MIN(salary*12)|MAX(salary*12)|AVG(salary*12)|
+|--|--:|--:|--:|
+|IT|1200|3600|2400.0000|
+|Service|1200|1200|1200.0000|
+|
+
 ### Get deps where summary salary less than 250
 ```sql
-SELECT dep, SUM(salary) FROM staff GROUP BY dep HAVING SUM(salary)<250
-
+SELECT dep, SUM(salary) FROM staff GROUP BY dep HAVING SUM(salary)<250;
 ```
+
+
+|dep|SUM(salary)|
+|--|--:|
+|Service|200|
+|
 
 ## Blow your mind
 
@@ -72,3 +88,10 @@ INSERT INTO data VALUES('Bezos', 'surname');
 -- SELECT v, k FROM data;
 SELECT k, GROUP_CONCAT(v SEPARATOR ', ') FROM data GROUP BY k
 ```
+
+|k|GROUP_CONCAT(v SEPARATOR ', ')|
+|--|--|
+|middlename|Carl|
+name|John, Bob|
+surname|Gates, Bezos|
+|

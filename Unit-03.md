@@ -98,6 +98,13 @@ SELECT customer.name, orders.id FROM orders, customer WHERE orders.customer_id=c
 SELECT customer.name, orders.id FROM orders INNER JOIN customer ON orders.customer_id=customer.id;
 ```
 
+|name  | id |
+|------|---:|
+|Bill  | 1  |
+|Bill  | 2  |
+|Jeff  | 3  |
+|
+
 ### Services by customers
 
 ```sql
@@ -106,6 +113,16 @@ SELECT service.name, customer.name FROM customer, service, orders, details WHERE
   details.order_id=orders.id AND
   details.service_id=service.id;
 ```
+
+|name           | name|
+|---------------|:----|
+|Lawyer Support | Bill|
+|Car Washing    | Bill|
+|Food Delivery  | Bill|
+|Food Delivery  | Bill|
+|Food Delivery  | Jeff|
+|Car Washing    | Jeff|
+|
 
 ### Avoid duplications
 
@@ -121,6 +138,15 @@ SELECT service.name, customer.name FROM customer, service, orders, details WHERE
   details.service_id=service.id GROUP BY service.name, customer.name;
 ```
 
+|name          | name|
+|--------------|:----|
+|Lawyer Support| Bill|
+|Car Washing   | Bill|
+|Food Delivery | Bill|
+|Food Delivery | Jeff|
+|Car Washing   | Jeff|
+|
+
 ### Who and how many times ordered the services
 
 ```sql
@@ -130,6 +156,15 @@ SELECT service.name, customer.name, COUNT(*) FROM customer, service, orders, det
   details.service_id=service.id 
 GROUP BY service.name, customer.name;
 ```
+
+|name|name|COUNT(*)|
+|---------------|:-----|--:|
+|Lawyer Support | Bill | 1|
+|Car Washing    | Bill | 1|
+|Food Delivery  | Bill | 2|
+|Food Delivery  | Jeff | 1|
+|Car Washing    | Jeff | 1|
+|
 
 ### How many times each serice was ordered
 
@@ -146,6 +181,13 @@ SELECT service_name, SUM(summa) FROM (
 ) AS inner_query GROUP BY service_name;
 ```
 
+|name|COUNT(*)|
+|---------------|--|
+|Lawyer Support | 1|
+|Car Washing    | 2|
+|Food Delivery  | 3|
+|
+
 What if we need to show the whole services list... Even without any related order.
 
 ```sql
@@ -160,6 +202,16 @@ SELECT service.name, COUNT(orders.id) FROM service
   LEFT JOIN orders ON details.order_id=orders.id 
 GROUP BY service.name ORDER BY service.name;
 ```
+|name|COUNT(orders.id)|
+|----------------------|-:|
+|Car Washing           | 2|
+|Entertainment         | 0|
+|Food Delivery         | 3|
+|Lawyer Support        | 1|
+|Pet Groomer           | 0|
+|Travel Agency Support | 0|
+|
+
 ### Correlated subquery
 
 ```sql 
@@ -177,9 +229,20 @@ SELECT service.name, SUM(cost), MIN(cost), MAX(cost), AVG(cost) FROM service, or
     GROUP BY service.name;
 ```
 
+|name|SUM(cost)|MIN(cost)|MAX(cost)|AVG(cost)|
+|---------------|--:|--:|--:|--:|
+|Lawyer Support | 100 | 100 | 100 | 100.0000|
+|Car Washing | 12 | 5 | 7 | 6.0000|
+|Food Delivery | 18 | 3 | 11 | 6.0000|
+|
+
 ### Totals. GROUP BY is redundant for this case.
 
 ```sql
 SELECT SUM(cost), MIN(cost), MAX(cost), AVG(cost) FROM service, orders, details 
   WHERE details.order_id=orders.id AND details.service_id=service.id;
 ```
+
+|SUM(cost)|MIN(cost)|MAX(cost)|AVG(cost)|
+|--:|--:|--:|--:|
+|130 | 3 | 100 | 21.6667|

@@ -70,6 +70,16 @@ SELECT teams.name, members.name FROM teams
     ORDER BY teams.name, members.name;
 ```
 
+|name|name|
+|--|--|
+|Backend|Backender #1|
+|Backend|Backender #2|
+|Backend|Backender #3|
+|Design|Designer|
+|Frontend|Frontender #1|
+|Frontend|Frontender #2|
+|
+
 ### Left join. Get all teams even that don't content any member.
 
 ```sql
@@ -78,6 +88,17 @@ SELECT teams.name, members.name FROM teams
     ORDER BY teams.name, members.name;
 ```
 
+|name|name|
+|--|--|
+|Backend|Backender #1|
+|Backend|Backender #2|
+|Backend|Backender #3|
+|Design|Designer|
+|Foo Bar|`null`| 
+|Frontend|Frontender #1|
+|Frontend|Frontender #2|
+|
+
 ### Get members count including empty teams.
 
 ```sql
@@ -85,6 +106,14 @@ SELECT teams.name, COUNT(members.name) FROM teams
   LEFT JOIN members ON members.team_id=teams.id
     GROUP BY teams.name;
 ```
+
+|name|COUNT(members.name)|
+|--|--:|
+|Backend|3|
+|Design|1|
+|Foo Bar|0|
+|Frontend|2|
+|
 
 ### Version 2 via subquery.
 
@@ -120,5 +149,18 @@ SELECT team_name, COUNT(member_name) FROM (
 SELECT name FROM teams
 UNION
 SELECT name FROM members;
-
 ```
+
+|name|
+|--|
+|Backend|
+|Design|
+|Foo Bar|
+|Frontend|
+|Frontender #1|
+|Frontender #2|
+|Backender #1|
+|Backender #2|
+|Backender #3|
+|Designer|
+|
