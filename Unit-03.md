@@ -103,7 +103,6 @@ SELECT customer.name, orders.id FROM orders INNER JOIN customer ON orders.custom
 |Bill  | 1  |
 |Bill  | 2  |
 |Jeff  | 3  |
-|
 
 ### Services by customers
 
@@ -122,7 +121,6 @@ SELECT service.name, customer.name FROM customer, service, orders, details WHERE
 |Food Delivery  | Bill|
 |Food Delivery  | Jeff|
 |Car Washing    | Jeff|
-|
 
 ### Avoid duplications
 
@@ -145,7 +143,6 @@ SELECT service.name, customer.name FROM customer, service, orders, details WHERE
 |Food Delivery | Bill|
 |Food Delivery | Jeff|
 |Car Washing   | Jeff|
-|
 
 ### Who and how many times ordered the services
 
@@ -164,7 +161,6 @@ GROUP BY service.name, customer.name;
 |Food Delivery  | Bill | 2|
 |Food Delivery  | Jeff | 1|
 |Car Washing    | Jeff | 1|
-|
 
 ### How many times each serice was ordered
 
@@ -186,7 +182,6 @@ SELECT service_name, SUM(summa) FROM (
 |Lawyer Support | 1|
 |Car Washing    | 2|
 |Food Delivery  | 3|
-|
 
 What if we need to show the whole services list... Even without any related order.
 
@@ -210,7 +205,6 @@ GROUP BY service.name ORDER BY service.name;
 |Lawyer Support        | 1|
 |Pet Groomer           | 0|
 |Travel Agency Support | 0|
-|
 
 ### Correlated subquery
 
@@ -234,7 +228,6 @@ SELECT service.name, SUM(cost), MIN(cost), MAX(cost), AVG(cost) FROM service, or
 |Lawyer Support | 100 | 100 | 100 | 100.0000|
 |Car Washing | 12 | 5 | 7 | 6.0000|
 |Food Delivery | 18 | 3 | 11 | 6.0000|
-|
 
 ### Totals. GROUP BY is redundant for this case.
 

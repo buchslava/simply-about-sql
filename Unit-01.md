@@ -78,7 +78,6 @@ SELECT teams.name, members.name FROM teams
 |Design|Designer|
 |Frontend|Frontender #1|
 |Frontend|Frontender #2|
-|
 
 ### Left join. Get all teams even that don't content any member.
 
@@ -97,7 +96,6 @@ SELECT teams.name, members.name FROM teams
 |Foo Bar|`null`| 
 |Frontend|Frontender #1|
 |Frontend|Frontender #2|
-|
 
 ### Get members count including empty teams.
 
@@ -113,7 +111,6 @@ SELECT teams.name, COUNT(members.name) FROM teams
 |Design|1|
 |Foo Bar|0|
 |Frontend|2|
-|
 
 ### Version 2 via subquery.
 
@@ -163,4 +160,3 @@ SELECT name FROM members;
 |Backender #2|
 |Backender #3|
 |Designer|
-|
