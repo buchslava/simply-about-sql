@@ -89,7 +89,7 @@ mysql> EXPLAIN ANALYZE SELECT COUNT(*) FROM staff_copy WHERE dep='IT';
 ```
 
 
-```
+```sql
 CREATE INDEX idx_staff_copy_dep ON staff_copy(dep);
 ```
 
