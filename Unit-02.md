@@ -122,6 +122,25 @@ mysql> EXPLAIN ANALYZE SELECT COUNT(*) FROM staff_copy WHERE dep LIKE 'IT%';
 
 ## Blow your mind
 
+`Input:`
+```json
+{
+  "John": "name", 
+  "Bob": "name",
+  "Carl": "middlename",
+  "Gates": "surname",
+  "Bezos": "surname"  
+}
+```
+
+`Output:`
+```json
+{
+  "name": ["John", "Bob"], 
+  "surname": ["Gates", "Bezos"]
+}
+```
+
 ```go
 package main
 
@@ -137,6 +156,10 @@ func main() {
   }
   fmt.Println(m, r)
 }
+```
+
+```
+map[Bezos:surname Bob:name Carl:middlename Gates:surname John:name] map[middlename:[Carl] name:[John Bob] surname:[Gates Bezos]]
 ```
 
 ### Let's imagine that we have millions on records?
