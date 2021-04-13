@@ -156,12 +156,12 @@ func main() {
   for key, value := range m {
     r[value] = append(r[value], key)
   }
-  fmt.Println(m, r)
+  fmt.Println(r)
 }
 ```
 
 ```
-map[Bezos:surname Bob:name Carl:middlename Gates:surname John:name] map[middlename:[Carl] name:[John Bob] surname:[Gates Bezos]]
+map[middlename:[Carl] name:[John Bob] surname:[Gates Bezos]]
 ```
 
 ### Let's imagine that we have millions on records?
