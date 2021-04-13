@@ -162,3 +162,79 @@ SELECT k, GROUP_CONCAT(v SEPARATOR ', ') FROM data GROUP BY k
 |middlename|Carl|
 name|John, Bob|
 surname|Gates, Bezos|
+
+## Blow your mind - permutation
+
+```javascript
+const array1 = ['Bob', 'Tina', 'Jack'];
+const array2 = ['Johanson', 'Smith', 'Gates'];
+const result = []
+
+for (let i = 0; i < array1.length; i++) {
+  for (let j = 0; j < array2.length; j++) {
+    let tempArray = [];
+    tempArray.push(array1[i]);
+    tempArray.push(array2[j]);
+    result.push(tempArray);
+  }
+}
+
+for (let i = 0; i < array2.length; i++) {
+  for (let j = 0; j < array1.length; j++) {
+    let tempArray = [];
+    tempArray.push(array1[j]);
+    tempArray.push(array2[i]);
+    result.push(tempArray);
+  }
+}
+
+console.log(result);
+```
+
+```
+[
+  [ 'Bob', 'Johanson' ],  [ 'Bob', 'Smith' ],
+  [ 'Bob', 'Gates' ],     [ 'Tina', 'Johanson' ],
+  [ 'Tina', 'Smith' ],    [ 'Tina', 'Gates' ],
+  [ 'Jack', 'Johanson' ], [ 'Jack', 'Smith' ],
+  [ 'Jack', 'Gates' ],    [ 'Bob', 'Johanson' ],
+  [ 'Tina', 'Johanson' ], [ 'Jack', 'Johanson' ],
+  [ 'Bob', 'Smith' ],     [ 'Tina', 'Smith' ],
+  [ 'Jack', 'Smith' ],    [ 'Bob', 'Gates' ],
+  [ 'Tina', 'Gates' ],    [ 'Jack', 'Gates' ]
+] 18
+```
+
+"Think different..."
+
+```sql
+CREATE TABLE names (
+  v varchar(255)
+);
+
+INSERT INTO names VALUES('Bob');
+INSERT INTO names VALUES('Tina');
+INSERT INTO names VALUES('Jack');
+
+CREATE TABLE surnames (
+  v varchar(255)
+);
+
+INSERT INTO surnames VALUES('Johanson');
+INSERT INTO surnames VALUES('Smith');
+INSERT INTO surnames VALUES('Gates');
+```
+
+```sql
+SELECT names.v AS c1, surnames.v AS c2 FROM names CROSS JOIN surnames
+UNION
+SELECT surnames.v, names.v FROM names CROSS JOIN surnames;
+```
+
+```sql
+SELECT COUNT(*) FROM (
+  SELECT names.v AS c1, surnames.v AS c2 FROM names CROSS JOIN surnames
+  UNION
+  SELECT surnames.v, names.v FROM names CROSS JOIN surnames
+) AS permutations;
+```
