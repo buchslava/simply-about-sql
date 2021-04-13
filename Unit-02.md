@@ -164,7 +164,7 @@ func main() {
 map[middlename:[Carl] name:[John Bob] surname:[Gates Bezos]]
 ```
 
-### Let's imagine that we have millions on records?
+### DB-based version
 
 ```sql
 CREATE TABLE data (
