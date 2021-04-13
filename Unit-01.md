@@ -62,6 +62,30 @@ SELECT teams.name, members.name FROM teams, members
     ORDER BY teams.name, members.name;
 ```
 
+### The issue
+
+```sql
+CREATE TABLE poor_teams (
+  id int NOT NULL AUTO_INCREMENT,
+  team_name varchar(255) NOT NULL,
+  member_name varchar(255),
+  PRIMARY KEY (id),
+  UNIQUE KEY key_team_member (team_name, member_name)
+);
+
+INSERT INTO poor_teams(team_name, member_name) VALUES('Frontend', 'Frontender #1');
+INSERT INTO poor_teams(team_name, member_name) VALUES('Frontend', 'Frontender #2');
+INSERT INTO poor_teams(team_name, member_name) VALUES('Backend', 'Backender #1');
+INSERT INTO poor_teams(team_name, member_name) VALUES('Backend', 'Backender #2');
+INSERT INTO poor_teams(team_name, member_name) VALUES('Backend', 'Backender #3');
+INSERT INTO poor_teams(team_name, member_name) VALUES('Design', 'Designer');
+INSERT INTO poor_teams(team_name, member_name) VALUES('Foo Bar', NULL);
+
+SELECT id, team_name, member_name FROM poor_teams
+```
+
+[More](https://habr.com/ru/post/254773/) and [more](https://docs.microsoft.com/ru-ru/office/troubleshoot/access/database-normalization-description)...
+
 ### Inner join. Get teams with related members
 
 ```sql
@@ -79,7 +103,7 @@ SELECT teams.name, members.name FROM teams
 |Frontend|Frontender #1|
 |Frontend|Frontender #2|
 
-### Left join. Get all teams even that don't content any member.
+### Left join. Get all teams even without any member.
 
 ```sql
 SELECT teams.name, members.name FROM teams 
