@@ -141,6 +141,8 @@ mysql> EXPLAIN ANALYZE SELECT COUNT(*) FROM staff_copy WHERE dep LIKE 'IT%';
 }
 ```
 
+Let's `Go`:)
+
 ```go
 package main
 
