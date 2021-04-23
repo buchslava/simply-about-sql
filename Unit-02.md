@@ -263,3 +263,51 @@ SELECT COUNT(*) FROM (
   SELECT surnames.v, names.v FROM names CROSS JOIN surnames
 ) AS permutations;
 ```
+
+### lead - lag
+
+```sql
+create table projects
+(
+	id            SERIAL,
+	title         varchar(255),
+	start_date    date,
+	end_date      date,
+	budget        int,
+
+	primary key(id)
+);
+
+insert into projects
+  (title, budget, start_date, end_date)
+values
+  ('Test Project 1', 1,  '2021-01-21', '2021-02-19'),
+  ('Test Project 2', 2,  '2021-02-19', '2021-05-28'),
+  ('Test Project 3', 7,  '2021-05-28', '2021-08-31'),
+  ('Test Project 4', 30, '2021-08-31', '2021-11-29'),
+  ('Test Project 5', 72, '2021-11-29', '2021-12-14'),
+  ('Test Project 6', 73, '2021-12-14', '2022-01-13'),
+  ('Test Project 7', 82, '2022-01-13', '2022-04-18');
+```
+
+Create a query that returns first *missing* natural number from the 'budget' column
+
+Wrong solution
+```sql
+SELECT s.i FROM generate_series(1,1000) s(i) WHERE s.i NOT IN (SELECT budget FROM projects ORDER BY budget) LIMIT 1;
+```
+
+The best way
+
+```sql
+SELECT budget+1 FROM (
+  SELECT id, title, budget, next_budget FROM (
+    SELECT
+      id,
+      title,
+      budget,
+      lead(budget) over (order by id) AS next_budget
+    FROM projects) AS rich_query WHERE next_budget-budget>1 LIMIT 1) AS result_query;
+```
+
+More info: https://learnsql.com/blog/lead-and-lag-functions-in-sql/
