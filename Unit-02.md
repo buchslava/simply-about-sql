@@ -120,23 +120,26 @@ mysql> EXPLAIN ANALYZE SELECT COUNT(*) FROM staff_copy WHERE dep LIKE 'IT%';
 1 row in set (0.71 sec)
 ```
 
+
+Theory: http://tokarchuk.ru/2012/08/indexes-classification/
+
 ## Blow your mind
 
 `Input:`
 ```json
 {
-  "John": "name", 
+  "John": "name",
   "Bob": "name",
   "Carl": "middlename",
   "Gates": "surname",
-  "Bezos": "surname"  
+  "Bezos": "surname"
 }
 ```
 
 `Output:`
 ```json
 {
-  "name": ["John", "Bob"], 
+  "name": ["John", "Bob"],
   "surname": ["Gates", "Bezos"]
 }
 ```

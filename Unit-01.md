@@ -1,5 +1,25 @@
 # Unit 1
 
+
+Basic theory: https://proselyte.net/tutorials/sql/rdbms-basic-concepts/
+
+
+## Let's try it simply...
+
+```sql
+CREATE TABLE person (
+  name varchar(255),
+  surname varchar(255),
+  phone varchar(255)
+);
+
+INSERT INTO person VALUES('John', 'Doe', '111-222-333');
+INSERT INTO person VALUES('Jack', 'Black', '
+```
+
+Primary key: https://ru.wikipedia.org/wiki/%D0%9F%D0%B5%D1%80%D0%B2%D0%B8%D1%87%D0%BD%D1%8B%D0%B9_%D0%BA%D0%BB%D1%8E%D1%87
+
+
 ## Let's create a data structure
 
 ```sql
@@ -29,18 +49,18 @@ CREATE TABLE members (
   CONSTRAINT member_team FOREIGN KEY (team_id) REFERENCES teams (id) ON DELETE CASCADE
 );
 
-INSERT INTO members(name, team_id) 
+INSERT INTO members(name, team_id)
   SELECT 'Frontender #1', (SELECT id FROM teams WHERE name='Frontend');
 -- INSERT INTO members(name, team_id) VALUES('Frontender #1', 1);
-INSERT INTO members(name, team_id) 
+INSERT INTO members(name, team_id)
   SELECT 'Frontender #2', (SELECT id FROM teams WHERE name='Frontend');
-INSERT INTO members(name, team_id) 
+INSERT INTO members(name, team_id)
   SELECT 'Backender #1', (SELECT id FROM teams WHERE name='Backend');
-INSERT INTO members(name, team_id) 
+INSERT INTO members(name, team_id)
   SELECT 'Backender #2', (SELECT id FROM teams WHERE name='Backend');
-INSERT INTO members(name, team_id) 
+INSERT INTO members(name, team_id)
   SELECT 'Backender #3', (SELECT id FROM teams WHERE name='Backend');
-INSERT INTO members(name, team_id) 
+INSERT INTO members(name, team_id)
   SELECT 'Designer', (SELECT id FROM teams WHERE name='Design');
 ```
 
@@ -57,8 +77,8 @@ SELECT * FROM members WHERE name='Backender #3';
 ## Joins
 
 ```sql
-SELECT teams.name, members.name FROM teams, members 
-  WHERE members.team_id=teams.id 
+SELECT teams.name, members.name FROM teams, members
+  WHERE members.team_id=teams.id
     ORDER BY teams.name, members.name;
 ```
 
@@ -86,11 +106,18 @@ SELECT id, team_name, member_name FROM poor_teams
 
 [More](https://habr.com/ru/post/254773/) and [more](https://docs.microsoft.com/ru-ru/office/troubleshoot/access/database-normalization-description)...
 
+
+## Joins
+
+![Joins explanation](./Unit-1/sql_joins.png)
+
+![Joins additions](./Unit-1/type-join.png)
+
 ### Inner join. Get teams with related members
 
 ```sql
-SELECT teams.name, members.name FROM teams 
-  INNER JOIN members ON members.team_id=teams.id 
+SELECT teams.name, members.name FROM teams
+  INNER JOIN members ON members.team_id=teams.id
     ORDER BY teams.name, members.name;
 ```
 
@@ -106,8 +133,8 @@ SELECT teams.name, members.name FROM teams
 ### Left join. Get all teams even without any member.
 
 ```sql
-SELECT teams.name, members.name FROM teams 
-  LEFT JOIN members ON members.team_id=teams.id 
+SELECT teams.name, members.name FROM teams
+  LEFT JOIN members ON members.team_id=teams.id
     ORDER BY teams.name, members.name;
 ```
 
@@ -117,14 +144,14 @@ SELECT teams.name, members.name FROM teams
 |Backend|Backender #2|
 |Backend|Backender #3|
 |Design|Designer|
-|Foo Bar|`null`| 
+|Foo Bar|`null`|
 |Frontend|Frontender #1|
 |Frontend|Frontender #2|
 
 ### Get members count including empty teams.
 
 ```sql
-SELECT teams.name, COUNT(members.name) FROM teams 
+SELECT teams.name, COUNT(members.name) FROM teams
   LEFT JOIN members ON members.team_id=teams.id
     GROUP BY teams.name;
 ```
@@ -148,7 +175,7 @@ SELECT teams.name,
 
 ```sql
 SELECT team_name, member_name FROM (
-  SELECT teams.name AS team_name, members.name AS member_name 
+  SELECT teams.name AS team_name, members.name AS member_name
     FROM teams LEFT JOIN members ON members.team_id=teams.id
       GROUP BY teams.name, members.name
 ) AS teams_desc;
@@ -158,7 +185,7 @@ SELECT team_name, member_name FROM (
 
 ```sql
 SELECT team_name, COUNT(member_name) FROM (
-  SELECT teams.name AS team_name, members.name AS member_name 
+  SELECT teams.name AS team_name, members.name AS member_name
     FROM teams LEFT JOIN members ON members.team_id=teams.id
       GROUP BY teams.name, members.name
 ) AS teams_desc GROUP BY team_name;
