@@ -2,6 +2,7 @@
 
 
 Basic theory: https://proselyte.net/tutorials/sql/rdbms-basic-concepts/
+Db-fiddle: https://www.db-fiddle.com/
 
 
 ## Let's try it simply...
@@ -14,7 +15,7 @@ CREATE TABLE person (
 );
 
 INSERT INTO person VALUES('John', 'Doe', '111-222-333');
-INSERT INTO person VALUES('Jack', 'Black', '
+INSERT INTO person VALUES('Jack', 'Black', '123-456-777');
 ```
 
 Primary key: https://ru.wikipedia.org/wiki/%D0%9F%D0%B5%D1%80%D0%B2%D0%B8%D1%87%D0%BD%D1%8B%D0%B9_%D0%BA%D0%BB%D1%8E%D1%87

@@ -239,3 +239,7 @@ SELECT SUM(cost), MIN(cost), MAX(cost), AVG(cost) FROM service, orders, details
 |SUM(cost)|MIN(cost)|MAX(cost)|AVG(cost)|
 |--:|--:|--:|--:|
 |130 | 3 | 100 | 21.6667|
+
+# The rest
+
+Transaction/ACID http://akorsa.ru/2016/08/rukovodstvo-dlya-nachinayushhih-acid-i-tranzaktsii-bd/

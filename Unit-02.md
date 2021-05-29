@@ -193,6 +193,8 @@ surname|Gates, Bezos|
 
 ## Blow your mind - permutation
 
+<!-- https://jsconsole.com/ -->
+
 ```javascript
 const array1 = ['Bob', 'Tina', 'Jack'];
 const array2 = ['Johanson', 'Smith', 'Gates'];
@@ -216,7 +218,7 @@ for (let i = 0; i < array2.length; i++) {
   }
 }
 
-console.log(result);
+console.log(JSON.stringify(result));
 ```
 
 ```
